@@ -1,0 +1,100 @@
+CREATE DATABASE Biblioteca; 
+use BIBLIOTECA;
+CREATE TABLE usuario(
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(20) NOT NULL,
+    apellido VARCHAR (30) NOT NULL,
+    cantlib INTEGER,
+    telefono VARCHAR(20) NOT NULL,
+    email VARCHAR(50)
+);
+
+CREATE TABLE suscripciones(
+	id_usuario int unsigned not null,
+    id_libro int not null,
+    foreign key (id_usuario) references usuarios (id),
+    foreign key (id_libro) references libros (id)
+);
+select * from suscripciones;
+INSERT INTO suscripciones (id_usuario,id_libro) VALUES ();
+CREATE TABLE LIBROS(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(50) NOT NULL,
+    Editorial VARCHAR(60),
+    Autor VARCHAR(30),
+    Genero VARCHAR(20),
+    link VARCHAR(20)
+);
+drop table libros;
+
+Insert INTO LIBROS (titulo,editorial,autor,Genero,link) VALUES 
+    ("Don Quijote de ka Mancha","ANAYA", "Miguel de Cervantes","Caballeroso","https://es.wikipedia.org/wiki/Don_Quijote_de_la_Mancha"),
+    ("El Principito","Andina", "Antoine S.Exupery","Aventura","https://es.wikipedia.org/wiki/Don_Quijote_de_la_Mancha"),
+    ("Historias de Nueva Orleans","Alfaguara", "William Faulkner","Novela","https://es.wikipedia.org/wiki/Don_Quijote_de_la_Mancha"),
+    ("El Ultimo Emperador","Caralt", "Pu-Yi","Autobiografias","https://es.wikipedia.org/wiki/Don_Quijote_de_la_Mancha"),
+    ("Fortuna y Jacinta","Plaza y Janes", "Perez Galdós","Novela","https://es.wikipedia.org/wiki/Don_Quijote_de_la_Mancha"),
+    ("Los Windsor","Plaza & Janes", "Kitty Killey","Biografías","https://es.wikipedia.org/wiki/Don_Quijote_de_la_Mancha"),
+    ("El Ultimo","Caralt", "Pu-Yi","Autobiografias","https://es.wikipedia.org/wiki/Don_Quijote_de_la_Mancha"),
+    ("Diplomacia","S.M", "Henry Kissinger","Político","https://es.wikipedia.org/wiki/Don_Quijote_de_la_Mancha"),
+    ("Harry Potter","H.S", "J.K Rowling","Aventura","https://es.wikipedia.org/wiki/Don_Quijote_de_la_Mancha")
+    ;
+select * from LIBROS;
+CREATE TABLE usuarios (
+	id INT UNSIGNED PRIMARY KEY NOT NULL  auto_increment,
+    nombre VARCHAR(20),
+    apellido VARCHAR(20),
+    contraseña VARCHAR(20),
+    id_rol int unsigned not null default 1 ,
+    foreign key (id_rol) references roles (id)
+);
+
+
+CREATE TABLE roles(
+	id int unsigned primary key not null auto_increment,
+    nombre Varchar(20) unique key
+);
+
+INSERT INTO roles (NOMBRE) VALUES
+	("ADMIN");
+    
+SELECT * FROM roles;
+
+drop table usuarios;
+
+select * from usuarios;
+
+select * from usuarios where nombre = 'conrado';
+
+INSERT INTO usuarios (nombre,apellido,contraseña,id_rol) VALUES ('Juan', 'admin','admin',2);
+
+DeSCRIBE LIBROS;
+
+select titulo,stock,descripcion from libros;
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE cuentas (
+    id INTEGER UNSIGNED PRIMARY KEY,
+    saldo DECIMAL(11,2) CHECK (saldo >= 0)
+);
+
+INSERT INTO cuentas VALUES (1, 1000);
+INSERT INTO cuentas VALUES (2, 2000);
+INSERT INTO cuentas VALUES (3, 0);
+
+select * from cuentas;
+
+START TRANSACTION;
+UPDATE cuentas SET saldo = saldo - 100 WHERE id = 1;
+UPDATE cuentas SET saldo = saldo + 100 WHERE id = 2;
+COMMIT;
